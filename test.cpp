@@ -66,49 +66,148 @@ using namespace std;
 //     return 0;
 // }
 
-void print(int arr[], int len) {
-    for(int i=0; i<len; i++) {
-        cout<<arr[i]<<" ";
-    }
-}
+// void print(int arr[], int len) {
+//     for(int i=0; i<len; i++) {
+//         cout<<arr[i]<<" ";
+//     }
+// }
 
-void modify(int arr[], int len) {
-    for(int i=0; i<len; i++) {
-        arr[i] = i+10;
-    }
-}
+// void modify(int arr[], int len) {
+//     for(int i=0; i<len; i++) {
+//         arr[i] = i+10;
+//     }
+// }
 
-void func(int *a, int *b) {
-    *a = 100;
-    *b = 200;
-}
+// void func(int *a, int *b) {
+//     *a = 100;
+//     *b = 200;
+// }
 
-void swap(int &a, int &b) {
-    int temp = a;
-    a = b;
-    b = temp;
-}
+// void swap(int &a, int &b) {
+//     int temp = a;
+//     a = b;
+//     b = temp;
+// }
 
-int main() {
-    // int arr[] = {1, 2, 3, 4, 5};
-    // int len = sizeof(arr)/sizeof(arr[0]);
+// int main() {
+//     // int arr[] = {1, 2, 3, 4, 5};
+//     // int len = sizeof(arr)/sizeof(arr[0]);
 
-    // print(arr, len);
+//     // print(arr, len);
 
-    // modify(arr, len);
+//     // modify(arr, len);
 
-    // printf("\n");
+//     // printf("\n");
 
-    // print(arr, len);
+//     // print(arr, len);
+
+//     // return 0;
+
+//     int a = 10;
+//     int b = 20;
+
+//     cout<<a<<" "<<b<<endl;
+
+//     swap(a, b);
+
+//     cout<<a<<" "<<b;
+// }
+
+
+// STL - Standard Template Library C++
+
+// Generic function that works with any data type
+// template <typename T> T findMaxGeneric(T a, T b) {
+//     return a > b ? a : b;
+// }
+
+// int findMax(int a, int b) {
+//     return a > b ? a : b;
+// }
+
+// int findMaxFromArray(int arr[], int n) {
+//     if(n <= 0) return 0;
+
+//     int max = arr[0];
+//     for(int i=1;i<n;i++) {
+//         if(arr[i] > max) {
+//             max = arr[i];
+//         }
+//     }
+
+//     return max;
+// }
+
+//int main() {
+
+
+    // cout<<findMaxGeneric(100, 20)<<endl;
+    // cout<<findMaxGeneric(11.45, 9.999)<<endl;
+    // cout<<findMaxGeneric('a', 'b')<<endl;
+
+    // int arr[5] = {3,6,1,8,4};
+    // cout<<findMaxFromArray(arr, 5);
 
     // return 0;
+//}
 
-    int a = 10;
-    int b = 20;
+int main() {
+    
+    //vector<int> v({1, 2, 3, 4, 5});
+ 
+    // for(int x: v) cout<<x<<" ";
 
-    cout<<a<<" "<<b<<endl;
+    // vector<int> v(5, 0);
+    // v.push_back(6);
+    // v.pop_back();
+    // for(int x: v) cout<<x<<" ";
 
-    swap(a, b);
+    // 2d vector
+    // vector<vector<int>> v(5, vector<int>(10, 1));
 
-    cout<<a<<" "<<b;
+    // for(int i=0;i<5;i++) {  
+    //     for(int j=0;j<10;j++) {
+    //         cout<<v[i][j]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+
+    //vector<int> v({2, 1, 7, 5, 9});
+
+    //v.resize(3);
+
+    //cout<<v.front()<<endl;
+    //cout<<v.back()<<endl;
+
+    // set<int> st({3, 4, 1, 2, 9});
+
+    // // check if a element is present in the set
+    // if(st.find(10) != st.end()) {
+    //     cout<<"Element present\n";
+    // } else {
+    //     cout<<"Not present\n";
+    // }
+    
+    // st.insert(-19);
+
+    // for(auto x: st) cout<<x<<" ";
+
+    // cout<<endl;
+
+    // for(auto it = st.rbegin(); it != st.rend(); it++) cout<<*it<<" ";
+
+    map<int, string> mp{{1, "saurabh"}, {8, "luffy"}, {2, "zoro"}};
+
+    cout<<mp.size()<<endl;
+    cout<<mp.empty()<<endl;
+
+    mp.insert({-8, "sanji"});
+
+    mp.erase(8);
+
+    for(auto it: mp) {
+        cout<<it.first<<" -> "<<it.second<<endl;
+    }
+
+    return 0;
 }
