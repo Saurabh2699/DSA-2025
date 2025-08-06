@@ -204,7 +204,7 @@ int main() {
     mp.insert({-8, "sanji"});
 
     mp.erase(8);
-
+    
     for(auto it: mp) {
         cout<<it.first<<" -> "<<it.second<<endl;
     }
