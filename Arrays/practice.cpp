@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-//PS: Count digits
+// PS: Count digits
 // TC: O(log10^N + 1)
 // SC: O(1)
 // Source: TUF
@@ -21,6 +21,7 @@ int countOfDigits(int n) {
     return digits;
 }
 
+// PS: Count Digits
 // TC: O(1)
 // SC: O(1)
 // Source: TUF
@@ -28,7 +29,7 @@ int countOfDigitsOptimized(int n) {
     return (int)(log10(n) + 1);
 }
 
-//PS: Reverse number
+// PS: Reverse number
 // TC: O(log10^N + 1)
 // SC: O(1)
 // Source: TUF
@@ -45,7 +46,7 @@ int reverseNumber(int n) {
     return rev_num;
 }
 
-//PS: Check if number is palindrome
+// PS: Check if number is palindrome
 // TC: O(log10^N + 1)
 // SC: O(1)
 // Source: TUF
@@ -53,7 +54,7 @@ bool isPalindrome(int n) {
     return reverseNumber(n) == n;
 }
 
-//PS: GCD of 2 numbers
+// PS: GCD of 2 numbers
 // TC: O(min(N1, N2))
 // SC: O(1)
 // Source: TUF
@@ -71,7 +72,7 @@ int findGCD(int a, int b) {
     return result;
 }
 
-//PS: GCD of 2 numbers
+// PS: GCD of 2 numbers
 // TC: O(log(min(N1, N2)))
 // SC: O(1)
 // Source: TUF
