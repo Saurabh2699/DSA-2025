@@ -80,6 +80,100 @@ int gcd(int a, int b) {
     return b == 0 ? a : gcd(b, a % b);
 }
 
+// Triangle Pattern
+/*
+        *
+      * * *
+    * * * * *
+  * * * * * * *
+
+*/
+void pattern1(int n) {
+    
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<2*n;j++) {
+            int j1 = n - i - 1;
+            int j2 = n + i - 1;
+
+            if(j >= j1 && j <= j2) {
+                cout<<"*";
+            } else {
+                cout<<" ";
+            }
+        }
+        cout<<"\n";
+    }
+}
+
+// Inverted Triangle Pattern
+/*
+  * * * * * * *
+    * * * * *
+      * * *
+        *
+*/
+void invertPattern1(int n) {
+    
+    for(int i=n-1;i>=0;i--) {
+        for(int j=0;j<2*n;j++) {
+            int j1 = n - i - 1;
+            int j2 = n + i - 1;
+
+            if(j >= j1 && j <= j2) {
+                cout<<"*";
+            } else {
+                cout<<" ";
+            }
+        }
+        cout<<"\n";
+    }
+}
+
+// Diamond Pattern
+/*
+        *
+      * * *
+    * * * * *
+  * * * * * * *
+   * * * * * * *
+    * * * * *
+      * * *
+        *
+*/
+void printDiamond(int n) {
+    pattern1(n);
+    invertPattern1(n);
+}
+
+/*
+
+*
+**
+***
+****
+*****
+****
+***
+**
+*
+
+*/
+void pattern2(int n) {
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<=i;j++) {
+            cout<<"*";
+        }
+        cout<<endl;
+    }
+
+    for(int i=n-1;i>0;i--) {
+        for(int j=i;j>0;j--) {
+            cout<<"*";
+        }
+        cout<<endl;
+    }
+}
+
 
 int main() {
     
@@ -98,6 +192,12 @@ int main() {
     // cout<<gcd(20, 28)<<endl;
     // cout<<gcd(20, 15)<<endl;
     // cout<<gcd(13, 17);
+
+    // pattern1(6);
+    // invertPattern1(6);
+    // printDiamond(6);
+
+    pattern2(5);
 
     return 0;
 }
