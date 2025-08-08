@@ -174,6 +174,54 @@ void pattern2(int n) {
     }
 }
 
+/*
+
+    1
+    01
+    101
+    0101
+    10101
+
+*/
+
+void pattern3(int n) {
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<=i;j++) {
+            if((i+j) % 2 == 0) cout<<1;
+            else cout<<0;
+        }
+        cout<<endl;
+    }
+}
+
+/*
+    1          1
+    12        21
+    123      321
+    1234    4321
+    12345  54321
+    123456654321
+*/
+
+void pattern4(int n) {
+    for(int i=1;i<=n;i++) {
+        for(int j=1;j<=i;j++) {
+            cout<<j;
+        }
+        
+        int spaces = 2 * (n-i);
+        for(int j=0;j<spaces;j++) {
+            cout<<" ";
+        }
+
+        for(int j=i;j>=1;j--) {
+            cout<<j;
+        }
+
+        cout<<endl;
+    }
+}
+
 
 int main() {
     
@@ -196,8 +244,9 @@ int main() {
     // pattern1(6);
     // invertPattern1(6);
     // printDiamond(6);
-
-    pattern2(5);
+    // pattern2(5);
+    // pattern3(5);
+    pattern4(10);
 
     return 0;
 }
