@@ -222,6 +222,59 @@ void pattern4(int n) {
     }
 }
 
+/*
+    A
+    AB
+    ABC
+    ABCD
+    ABCDE
+*/
+void pattern5(int n) {
+    for(int i=0;i<n;i++) {
+        char ch = 'A';
+        for(int j=0;j<=i;j++) {
+            cout<<ch;
+            ch += 1;
+        }
+        cout<<endl;
+    }
+}
+
+/*
+    ABCDE
+    ABCD
+    ABC
+    AB
+    A
+*/
+void pattern6(int n) {
+    for(int i=n;i>0;i--) {
+        char ch = 'A';
+        for(int j=0;j<i;j++) {
+            cout<<ch;
+            ch += 1;
+        }
+        cout<<endl;
+    }
+}
+
+/*
+    A
+    BB
+    CCC
+    DDDD
+    EEEEE
+*/
+
+void pattern7(int n) {
+    for(int i=0;i<n;i++) {
+        char ch = 'A' + i;
+        for(int j=0;j<=i;j++) {
+            cout<<ch;
+        }
+        cout<<endl;
+    }
+}
 
 int main() {
     
@@ -246,7 +299,9 @@ int main() {
     // printDiamond(6);
     // pattern2(5);
     // pattern3(5);
-    pattern4(10);
-
+    // pattern4(10);
+    // pattern5(5);
+    //pattern6(5);
+    pattern7(5);
     return 0;
 }
