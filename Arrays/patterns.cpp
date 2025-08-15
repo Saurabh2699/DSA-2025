@@ -276,6 +276,133 @@ void pattern7(int n) {
     }
 }
 
+/*
+    A    
+   ABA   
+  ABCBA  
+ ABCDCBA 
+ABCDEDCBA
+
+*/
+void pattern8(int n) {
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<n-i-1;j++) {
+            cout<<" ";
+        }
+
+        int breakPoint = ((2*i)+1)/2;
+        char ch = 'A';
+        for(int j=1;j<=(2*i)+1;j++) {
+            cout<<ch;
+            if(j <= breakPoint) ch++;
+            else ch--;
+        }
+
+        for(int j=0;j<n-i-1;j++) {
+            cout<<" ";
+        }  
+
+        cout<<endl;
+    }
+}
+
+/*
+    E
+    DE
+    CDE
+    BCDE
+    ABCDE
+*/
+void pattern9(int n) {
+    for(int i=0;i<n;i++) {
+        char ch = 'A' + (n-i-1);
+        for(int j=0;j<=i;j++) {
+            cout<<ch;
+            ch++;
+        }
+        cout<<endl;
+    }
+}
+
+/*
+
+    **********
+    ****  ****
+    ***    ***
+    **      **
+    *        *
+    *        *
+    **      **
+    ***    ***
+    ****  ****
+    **********
+
+*/
+void pattern10(int n) {
+    for(int i=0;i<2*n;i++) {
+        if(i < n) {
+            for(int j=0;j<(n-i);j++) cout<<"*";
+            for(int j=0;j<2*i;j++) cout<<" ";
+            for(int j=0;j<(n-i);j++) cout<<"*";
+            cout<<endl;
+        } else {    
+            for(int j=0;j<=(i-n);j++) cout<<"*";
+            for(int j=0;j<((2*n)-2*((i-n)+1));j++) cout<<" ";
+            for(int j=0;j<=(i-n);j++) cout<<"*";
+            cout<<endl;
+        }       
+    }
+}
+
+/*
+    *        *
+    **      **
+    ***    ***
+    ****  ****
+    **********
+    ****  ****
+    ***    ***
+    **      **
+    *        *
+*/
+
+void pattern11(int n) {
+    for(int i=1;i<2*n;i++) {
+        if(i <= n) {
+            int stars = 2*i;
+            int spaces = 2*n - stars;
+            for(int j=1;j<=(stars/2);j++) cout<<"*";
+            for(int j=1;j<=spaces;j++) cout<<" ";
+            for(int j=1;j<=(stars/2);j++) cout<<"*";
+            cout<<endl;
+        } else {
+            int stars = 2*n - 2*(i-n);
+            int spaces = 2*n - stars;
+            for(int j=1;j<=(stars/2);j++) cout<<"*";
+            for(int j=1;j<=spaces;j++) cout<<" ";
+            for(int j=1;j<=(stars/2);j++) cout<<"*";
+            cout<<endl;
+        }
+    }
+}
+
+/*
+    *****
+    *   *
+    *   *
+    *   *
+    *****
+*/
+void pattern12(int n) {
+    for(int i=0;i<n;i++) {
+        for(int j=0;j<n;j++) {
+            if(i == 0 || i == n-1 || j == 0 || j == n-1) cout<<"*";
+            else cout<<" ";
+        }
+        cout<<endl;
+    }
+}
+
 int main() {
     
     //cout<<countOfDigits(211000)<<endl;
@@ -301,7 +428,13 @@ int main() {
     // pattern3(5);
     // pattern4(10);
     // pattern5(5);
-    //pattern6(5);
-    pattern7(5);
+    // pattern6(5);
+    // pattern7(5);
+    // pattern8(5);
+    // pattern9(5);
+    // pattern10(5);
+    // pattern11(5);
+    // pattern12(5);
+
     return 0;
 }
