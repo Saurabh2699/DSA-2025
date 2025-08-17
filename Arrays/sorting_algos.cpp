@@ -167,13 +167,13 @@ void quick_sort(int arr[], int start, int end) {
 }
 
 int main() {
-    int arr[] = {9, -1, -11, 1, 8, 8, 7, 2, 3, 6, 0, 5, 4};
+    int arr[] = {0,0,1,1,1,2,2,3,3,4};
     int n = sizeof(arr)/sizeof(arr[0]);
 
     // selection_sort(arr, n);
     // bubble_sort(arr, n);
     // bubble_sort_recursive(arr, 0, n);
-    // insertion_sort(arr, n);
+    insertion_sort(arr, n);
     // quick_sort(arr, 0, n-1);
     // merge_sort(arr, n);
     // print_arr(arr, n);
