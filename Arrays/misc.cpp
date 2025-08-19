@@ -8,6 +8,9 @@ This file has some miscelleneous array questions
 - Remove duplicates from sorted array
 - Move zeroes to end
 - Union of Two sorted arrays
+- Find max consecutive ones in boolean array
+- Find missing number in an array [1..N]
+- Find the number which appear once and other numbers appears twice
 */
 
 #include<bits/stdc++.h>
@@ -197,9 +200,83 @@ void unionOfTwoSortedArrays(int arr1[], int arr2[], int n, int m) {
     for(auto x: unionArray) cout<<x<<" ";
 }
 
+void removeDuplicatesFromSortedArray(int arr[], int n) {
+    int i=0, j=0;
+
+    while(j < n) {
+        if(arr[i] != arr[j]) {
+            i++;
+            arr[i] = arr[j];
+        }
+        j++;
+    }
+
+    print_arr(arr, n);
+}
+
+int findMaxConsecutiveOnes(vector<int>& nums) {
+    int maxi = 0;
+    int count = 0;
+    int n = nums.size();
+
+    for(int i=0;i<n;i++) {
+        if(nums[i] == 1) {
+            count++;
+            maxi = max(maxi, count);
+        } else {
+            count = 0;
+        }
+    }
+
+    return maxi;
+}
+
+void findMissingNumber(int arr[], int n) {
+    // Approach 1: make use of map/set/frequency counter
+    // Approach 2: Sum of [1..N] - Sum of array elements 
+    // Approach 3: xor method
+    /*
+        xor1 = Find xor of all array elements
+        xor2 = Find xor of numbers from 1..N
+        return xor1 ^ xor2
+
+        Why this works..?
+
+        xor properties:
+
+        1. xor of same numbers = 0 i.e a^a = 0;
+        2. xor of a number with 0 = number i.e a^0 = a;
+        
+    */
+
+    int xor1 = 0, xor2 = 0;
+
+    for(int i=0;i<n-1;i++) {
+        xor1 = xor1 ^ arr[i];
+        xor2 = xor2 ^ (i+1);
+    }
+    xor2 = xor2 ^ (n);
+
+    int result = xor1 ^ xor2;
+
+    cout<<result;
+}
+
+void findNumberAppearingOnce(int arr[], int n) {
+    // Approach 1: frequency counter/hashmap
+    // Appoach 2: xor all elements
+
+    int missingNumber = 0;
+    for(int i=0;i<n;i++) {
+        missingNumber ^= arr[i];
+    }
+
+    cout<<missingNumber;
+}
+
 int main() {
-    //int arr[] = {0, 0, 0, 0, 1, 1, 1};
-    //int n = sizeof(arr)/sizeof(arr[0]);
+    int arr[] = {1, 2, 2, 5, 3, 3, 1, 6, 6};
+    int n = sizeof(arr)/sizeof(arr[0]);
     
     //largestElementInArray(arr, n);
     
@@ -216,9 +293,16 @@ int main() {
 
     //leftRotateBy1(arr, n);
 
-   //moveAllZeroesToEnd(arr, n);
-    int n = 10, m = 7;
-    int arr1[] = {1,2,3,4,5,6,7,8,9,10}; 
-    int arr2[] = {2,3,4,4,5,11,12};
-    unionOfTwoSortedArrays(arr1, arr2, n, m);
+    //moveAllZeroesToEnd(arr, n);
+    // int n = 10, m = 7;
+    // int arr1[] = {1,2,3,4,5,6,7,8,9,10}; 
+    // int arr2[] = {2,3,4,4,5,11,12};
+    // unionOfTwoSortedArrays(arr1, arr2, n, m);
+
+    //removeDuplicatesFromSortedArray(arr, n);
+
+    //findMissingNumber(arr, n+1);
+
+    //findNumberAppearingOnce(arr, n);
 }
+
