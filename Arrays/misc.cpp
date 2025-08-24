@@ -274,8 +274,30 @@ void findNumberAppearingOnce(int arr[], int n) {
     cout<<missingNumber;
 }
 
+/*
+Given: an array of size n and a sum k
+Find: Need to find out the maximum length of subarray of sum k
+*/
+
+void longestSubarrayWithSumK(int arr[], int n, int k) {
+    unordered_map<int, int> mp;
+    mp[0] = -1;
+    int sum = 0;
+    int maxLen = 0;
+
+    for(int i=0;i<n;i++) {
+        sum += arr[i];
+        if(mp.find(sum-k) != mp.end()) {
+            maxLen = max(maxLen, i - mp[sum-k]);
+        }
+        mp[sum] = i;
+    }
+
+    cout<<maxLen;
+}
+
 int main() {
-    int arr[] = {1, 2, 2, 5, 3, 3, 1, 6, 6};
+    int arr[] = {1, 1, 2, 3, 1, 1, 1, 1, 1};
     int n = sizeof(arr)/sizeof(arr[0]);
     
     //largestElementInArray(arr, n);
@@ -304,5 +326,17 @@ int main() {
     //findMissingNumber(arr, n+1);
 
     //findNumberAppearingOnce(arr, n);
+
+    longestSubarrayWithSumK(arr, n, 5);
 }
 
+
+
+/*
+Things to do tomorrow:
+- Implement metadata based API callout - try if not poss then take diff route
+- Difficult to reuse Remote call IP
+- Implement your own solution using Environment metadata and filters
+- Fetch columns using metadata and return to LWC
+- Implement logic to show coverage specific documents
+*/ 
