@@ -11,6 +11,8 @@ This file has some miscelleneous array questions
 - Find max consecutive ones in boolean array
 - Find missing number in an array [1..N]
 - Find the number which appear once and other numbers appears twice
+- Maximum length subarray with sum k (only positives)
+- Maximum length subarray with sum k (both positives and negatives)
 */
 
 #include<bits/stdc++.h>
@@ -278,7 +280,7 @@ void findNumberAppearingOnce(int arr[], int n) {
 Given: an array of size n and a sum k
 Find: Need to find out the maximum length of subarray of sum k
 */
-
+// Works for both positive and negative elements
 void longestSubarrayWithSumK(int arr[], int n, int k) {
     unordered_map<int, int> mp;
     mp[0] = -1;
@@ -290,14 +292,42 @@ void longestSubarrayWithSumK(int arr[], int n, int k) {
         if(mp.find(sum-k) != mp.end()) {
             maxLen = max(maxLen, i - mp[sum-k]);
         }
-        mp[sum] = i;
+        if(mp.find(sum) == mp.end())
+            mp[sum] = i;
+    }
+
+    cout<<maxLen;
+}
+
+// Works for only positive elements
+void longestSubarrayWithSumKInPlace(int arr[], int n, int k) {
+    int i=0, j=0;
+    int sum = 0;
+    int maxLen = 0;
+
+    while(j < n) {
+        sum += arr[j];
+        
+        if(sum == k) {
+            maxLen = max(maxLen, j-i+1);
+        }
+
+        else {
+            while(sum > k) {
+                sum -= arr[i];
+                i++;
+            }
+        }
+
+        j++;
     }
 
     cout<<maxLen;
 }
 
 int main() {
-    int arr[] = {1, 1, 2, 3, 1, 1, 1, 1, 1};
+    int arr[] = {5, -6, -2, 3, 1, 1, -4, -3, 7, 5};
+    //int arr[] = {1, 1, 3, 2, 3, 1, 1, 1, 1};
     int n = sizeof(arr)/sizeof(arr[0]);
     
     //largestElementInArray(arr, n);
@@ -328,15 +358,6 @@ int main() {
     //findNumberAppearingOnce(arr, n);
 
     longestSubarrayWithSumK(arr, n, 5);
+    //longestSubarrayWithSumKInPlace(arr, n, 5);
 }
 
-
-
-/*
-Things to do tomorrow:
-- Implement metadata based API callout - try if not poss then take diff route
-- Difficult to reuse Remote call IP
-- Implement your own solution using Environment metadata and filters
-- Fetch columns using metadata and return to LWC
-- Implement logic to show coverage specific documents
-*/ 
