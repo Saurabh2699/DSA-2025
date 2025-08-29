@@ -2,7 +2,13 @@
 Problems covered in this file:
 - 2 Sum
 - Sort an array of 0s, 1s and 2s
+- Majority Element that appears > n/2 times
+- Maximum sum subarray - (Kadane's Algorithm)
 */ 
+
+
+#include<bits/stdc++.h>
+using namespace std;
 
 // TC: O(N)
 // SC: O(N)
@@ -71,3 +77,87 @@ void sortColors(vector<int>& nums) {
             }
         }
     }
+
+
+// TC: O(N)
+// SC: O(1)
+// LC: https://leetcode.com/problems/majority-element/
+int majorityElement(vector<int>& nums) {
+    // TC: O(N)
+    // SC: O(N)
+    // unordered_map<int, int> mp;
+    // int n = nums.size();
+
+    // for(int x: nums) {
+    //     mp[x]++;
+
+    //     if(mp[x] > (n/2)) return x;
+    // }
+
+    // return INT_MAX;
+
+    int n = nums.size();
+    int count = 0;
+    int candidate = nums[0];
+
+    for(int x: nums) {
+        if(x == candidate) count++;
+
+        else count--;
+        
+        if(count == 0) {
+            count = 1;
+            candidate = x;
+        }
+    }
+
+    return candidate;    
+}
+
+// TC: O(N)
+// SC: O(1)
+// LC: https://leetcode.com/problems/maximum-subarray/ 
+// Kadane's Algorithm
+int maxSubArray(vector<int>& nums) {
+    int n = nums.size();
+    int sum = 0;
+    int max_sum = INT_MIN;
+
+    for(int i=0;i<n;i++) {
+        sum += nums[i];
+        max_sum = max(max_sum, sum);
+        if(sum < 0) {
+            sum = 0;
+        }
+    }
+
+    return max_sum;
+}
+
+void printMaxSubArraySum(vector<int> &nums) {
+    int n = nums.size();
+    int sum = 0;
+    int max_sum = INT_MIN;
+    int start = 0, end = 0;
+
+    for(int i=0;i<n;i++) {
+        sum += nums[i];
+        if(sum > max_sum) {
+            max_sum = sum;
+            end = i;
+        }
+        if(sum < 0) {
+            sum = 0;
+            start = i+1;
+        }
+    }
+
+    cout<<start<<" -> "<<end<<endl;
+
+    for(int i=start;i<=end;i++) cout<<nums[i]<<" ";
+}
+
+int main() {
+    vector<int> v = {-2,-1,-3,-4,-1,-2,-1,-5, 4};
+    printMaxSubArraySum(v);
+}
