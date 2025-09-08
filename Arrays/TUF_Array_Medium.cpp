@@ -4,6 +4,8 @@ Problems covered in this file:
 - Sort an array of 0s, 1s and 2s
 - Majority Element that appears > n/2 times
 - Maximum sum subarray - (Kadane's Algorithm)
+- Stock buy and sell
+- move all positves to left and all negatives to right
 */ 
 
 
@@ -157,7 +159,60 @@ void printMaxSubArraySum(vector<int> &nums) {
     for(int i=start;i<=end;i++) cout<<nums[i]<<" ";
 }
 
+// TC:O(N)
+// SC: O(1)
+// LC: https://leetcode.com/problems/best-time-to-buy-and-sell-stock/
+int maxProfit(vector<int>& prices) {
+    int n = prices.size();
+    int maxProfit = 0;
+    int minStockPrice = prices[0];
+
+    for(int i=0;i<n;i++) {
+        minStockPrice = min(minStockPrice, prices[i]);
+        maxProfit = max(maxProfit, prices[i] - minStockPrice);
+    }
+
+    return maxProfit;
+}
+
+// Move all the positives towards left side and negatives to the right side
+void seggragateArray(vector<int> &nums) {
+    // int n = nums.size();
+    // int i = 0, j = n-1;
+
+    // while(i < j) {
+    //     if(nums[i] >= 0) i++;
+
+    //     else {
+    //         swap(nums[i], nums[j]);
+    //         j--;
+    //     }
+    // }
+
+    // for(int x: nums) cout<<x<<" ";
+
+    // another approach
+    int n = nums.size();
+    int i = 0;
+    int j = 0;
+
+    while(j < n) {
+        while(j < n && nums[j] < 0) j++;
+
+        if(j >= n) break;
+
+        swap(nums[i], nums[j]);
+        i++;
+        j++;
+    }
+
+    for(int x: nums) cout<<x<<" ";
+}
+
+
+
 int main() {
-    vector<int> v = {-2,-1,-3,-4,-1,-2,-1,-5, 4};
-    printMaxSubArraySum(v);
+    vector<int> v = {2,-1,3,-4,-1,-2,-1,-5, 4};
+    seggragateArray(v);
+    //printMaxSubArraySum(v);
 }
