@@ -6,6 +6,8 @@ Problems covered in this file:
 - Maximum sum subarray - (Kadane's Algorithm)
 - Stock buy and sell
 - move all positves to left and all negatives to right
+- Next Permutation
+- Find leaders in the array
 */ 
 
 
@@ -209,10 +211,108 @@ void seggragateArray(vector<int> &nums) {
     for(int x: nums) cout<<x<<" ";
 }
 
+// TC: O(N) overall though multiple passes but approx
+// SC: O(1) in place modification
+// LC: https://leetcode.com/problems/next-permutation/
+void nextPermutation(vector<int>& nums) {
+    int n = nums.size();
 
+    // The solution follows 3 steps:
+
+    // Step 1 - Traverse from end and find first element less the next element i.e nums[i] < nums[i+1]
+    int brkPoint = -1;
+    for(int i = n-2 ; i >= 0 ; i--) {
+        if(nums[i] < nums[i+1]) {
+            brkPoint = i;
+            break;
+        }        
+    }
+
+    // Means arrays is sorted in decreasing order
+    // No next permutation can be found
+    // reverse the array
+    if(brkPoint == -1) {
+        reverse(nums.begin(), nums.end());
+        return;
+    }
+
+    // Step 2 - Find out first element greater than brkPoint element in right side of array and swap
+    for(int i = n-1 ; i > brkPoint ; i--) {
+        if(nums[i] > nums[brkPoint]) {
+            swap(nums[i], nums[brkPoint]);
+            break;
+        }
+    }
+
+    // Step 3 - Reverse array from brkPoint+1 to n
+    reverse(nums.begin() + brkPoint + 1, nums.end());
+}
+
+// TC: O(N)
+// SC: O(1)
+// TUF: https://takeuforward.org/data-structure/leaders-in-an-array/
+void printAllLeadersInTheArray(vector<int> &nums) {
+    int n = nums.size();
+    int maxi = INT_MIN;
+
+    for(int i = n-1; i >= 0; i--) {
+        if(nums[i] > maxi) {
+            cout<<nums[i]<<" ";
+            maxi = nums[i];
+        }
+    }
+}
+
+
+// TUF: https://takeuforward.org/data-structure/longest-consecutive-sequence-in-an-array/
+// Check TC and SC from the article
+void longestConsecutiveSequence(vector<int> &nums) {
+    int n = nums.size();
+    int len = 1;
+    int maxLen = INT_MIN;
+    int lastNumber = nums[0];
+
+    // Approach: O(NLogN)
+
+    sort(nums.begin(), nums.end());
+
+    for(int i=1; i<n; i++) {
+        if(nums[i]-1 == lastNumber) {
+            len++;
+            lastNumber = nums[i]; 
+        } else if(nums[i] != lastNumber) {
+            len = 1;
+            lastNumber = nums[i];
+        }
+        maxLen = max(maxLen, len);
+    }
+
+    // unordered_set<int> st;
+
+    // for(int x: nums) st.insert(x);
+
+    // for(int i=0; i<n; i++) {
+    //     int start = nums[i];
+    //     int len = 1;
+    //     while(true) {
+    //         if(st.find(start+1) != st.end()) {
+    //             len++;
+    //             maxLen = max(len, maxLen);
+    //             start = start+1;
+    //         } else {
+    //             break;
+    //         }
+    //     }
+    // }
+
+    cout<<"Max Length: "<<maxLen;
+}
 
 int main() {
-    vector<int> v = {2,-1,3,-4,-1,-2,-1,-5, 4};
-    seggragateArray(v);
+    vector<int> v = {1, 2, 3, 4, 4, 5, 5, 6};
+    //seggragateArray(v);
     //printMaxSubArraySum(v);
+    //printAllLeadersInTheArray(v);
+
+    longestConsecutiveSequence(v);
 }
