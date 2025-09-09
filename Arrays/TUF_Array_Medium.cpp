@@ -8,6 +8,9 @@ Problems covered in this file:
 - move all positves to left and all negatives to right
 - Next Permutation
 - Find leaders in the array
+- Longest consecutive sequence
+- Set matrix zeros
+- Matrix rotate by 90 degrees right
 */ 
 
 
@@ -306,6 +309,109 @@ void longestConsecutiveSequence(vector<int> &nums) {
     // }
 
     cout<<"Max Length: "<<maxLen;
+}
+
+// LC: https://leetcode.com/problems/set-matrix-zeroes/
+void setZeroes(vector<vector<int>>& matrix) {
+    int row = matrix.size();
+    int col = matrix[0].size();
+
+    // Approach 1:
+    // TC: O(N*M)
+    // SC: O(N + M) 
+
+    // vector<int> rows(row, 1);
+    // vector<int> cols(col, 1);
+
+    // for(int i=0; i<row; i++) {
+    //     for(int j=0; j<col; j++) {
+    //         if(matrix[i][j] == 0) {
+    //             rows[i] = 0;
+    //             cols[j] = 0;
+    //         }
+    //     }
+    // }
+
+    // for(int i=0; i<row; i++) {
+    //     for(int j=0; j<col; j++) {
+    //         if(rows[i] == 0 || cols[j] == 0) {
+    //             matrix[i][j] = 0;
+    //         } 
+    //     }
+    // }
+
+    // Approach 2:
+    // TC: O(N*M)
+    // SC: Constant - in place modification
+    bool rowFlag = false;
+    bool colFlag = false;
+
+    for(int i=0; i<row; i++) {
+        for(int j=0; j<col; j++) {
+            if(matrix[i][j] == 0) {
+                if(i == 0) rowFlag = true;
+                if(j == 0) colFlag = true;
+
+                matrix[i][0] = 0;
+                matrix[0][j] = 0;
+            }
+        }
+    }    
+
+    for(int i=1; i<row; i++) {
+        for(int j=1; j<col; j++) {
+            if(matrix[i][0] == 0 || matrix[0][j] == 0) {
+                matrix[i][j] = 0;
+            } 
+        }
+    }
+
+    if(rowFlag) {
+        for(int i=0; i<col; i++) {
+            matrix[0][i] = 0;
+        }
+    }
+
+    if(colFlag) {
+        for(int i=0; i<row; i++) {
+            matrix[i][0] = 0;
+        }
+    }
+}
+
+// TC: O(N*M)
+// SC: O(1) constant in place
+// LC: https://leetcode.com/problems/rotate-image/description/
+void rotate(vector<vector<int>>& matrix) {
+    int rows = matrix.size();
+    int cols = matrix[0].size();
+    
+    /*
+    Rotate matrix clockwise 90 deg. 
+        1. Transpose the matrix
+        2. Reverse individual rows
+    */
+    
+    // 1. Transpose
+    for(int i=0;i<rows;i++) {
+        for(int j=i;j<cols;j++) {
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[j][i];
+            matrix[j][i] = temp;
+        }
+    }
+    
+    // 2. Reverse rows
+    for(int i=0;i<rows;i++) {
+        int j=0; int k = cols-1;
+        while(j < k) {
+            int temp = matrix[i][j];
+            matrix[i][j] = matrix[i][k];
+            matrix[i][k] = temp;
+            j++;
+            k--;
+        }
+    }
 }
 
 int main() {
