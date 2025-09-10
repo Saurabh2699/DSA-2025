@@ -11,6 +11,8 @@ Problems covered in this file:
 - Longest consecutive sequence
 - Set matrix zeros
 - Matrix rotate by 90 degrees right
+- Print matrix in spiral order
+- Count of subarrays with given sum
 */ 
 
 
@@ -412,6 +414,68 @@ void rotate(vector<vector<int>>& matrix) {
             k--;
         }
     }
+}
+
+//LC: https://leetcode.com/problems/spiral-matrix/
+vector<int> spiralOrder(vector<vector<int>>& matrix) {
+    int row = matrix.size();
+    int col = matrix[0].size();
+    
+    vector<int> spiral;
+    
+    int top=0,down=row-1,left=0,right=col-1;
+    
+    while(top <= down && left <= right) {
+        // print first row
+        for(int i=left;i<=right && top<=down;i++) {
+            spiral.push_back(matrix[top][i]);
+        }
+        top += 1;
+        
+        // print last column
+        for(int i=top;i<=down && left<=right;i++) {
+            spiral.push_back(matrix[i][right]);
+        }
+        right -= 1;
+        
+        // print last row
+        for(int i=right;i>=left && top<=down;i--) {
+            spiral.push_back(matrix[down][i]);
+        }
+        down -= 1;
+        
+        // print first column
+        for(int i=down;i>=top && left<=right;i--) {
+            spiral.push_back(matrix[i][left]);
+        }
+        left += 1;
+    }
+    
+    return spiral;
+}
+
+// TC: O(N)
+// SC: O(N)
+// LC: https://leetcode.com/problems/subarray-sum-equals-k/
+int subarraySum(vector<int>& nums, int k) {
+    int n = nums.size();
+    int sum = 0;
+    int count = 0;
+    unordered_map<int, int> mp;
+
+    for(int i=0; i<n; i++) {
+        sum += nums[i];
+
+        if(sum == k) count++;
+
+        if(mp.find(sum-k) != mp.end()) {
+            count += mp[sum-k];
+        }
+
+        mp[sum]++;
+    }    
+
+    return count;
 }
 
 int main() {
