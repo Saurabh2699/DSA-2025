@@ -2,6 +2,9 @@
 - Pascal's Triangle
 - Majority Element greater than N/3 times
 - 3 Sum, unique triplets
+- Merge Overlapping Intervals
+- Merge Two Sorted Arrays
+- Maximum Product Subarray
 */
 
 #include<bits/stdc++.h>
@@ -172,8 +175,121 @@ int largestSubarrayLengthWithSum0(vector<int> &nums) {
     return len;
 }
 
-int main() {
-    vector<int> v = {1, 0, -5};
+// TC: O(NlogN) + O(N) + O(N)
+// SC: O(N)
+// LC: https://leetcode.com/problems/merge-intervals/
+vector<vector<int>> merge(vector<vector<int>>& intervals) {
+    // vector<vector<int>> res;
+    // stack<vector<int>> st;
 
-    cout<<largestSubarrayLengthWithSum0(v);
+    // sort(intervals.begin(), intervals.end());
+
+    // st.push(intervals[0]);
+
+    // for(int i=1; i<intervals.size(); i++) {
+    //     auto top = st.top();
+    //     if(intervals[i][0] <= top[1]) {
+    //         st.pop();
+    //         intervals[i][0] = top[0];
+    //         intervals[i][1] = max(intervals[i][1], top[1]);
+    //         st.push(intervals[i]);
+    //     } else {
+    //         st.push(intervals[i]);
+    //     }
+    // }
+
+    // while(!st.empty()) {
+    //     auto top = st.top();
+    //     st.pop();
+    //     res.push_back(top);
+    // }
+    
+    // return res;
+
+    // Alternate approach without using stack
+    // int n = intervals.size();
+    // vector<vector<int>> res;
+
+    // sort(intervals.begin(), intervals.end());
+
+    // res.push_back(intervals[0]);
+    // for(int i=1; i<n; i++) {
+    //     // check if current interval can be merged with previous
+    //     if(intervals[i][0] <= res.back()[1]) {
+    //         res.back()[1] = max(res.back()[1], intervals[i][1]);
+    //     } else {
+    //         res.push_back(intervals[i]);
+    //     }
+    // }
+
+    // return res;
+}
+
+// TC: O(M + N)
+// SC: Constant
+// LC: https://leetcode.com/problems/merge-sorted-array/
+void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+
+    // Approach 1:  Where 0s are present at the end of the array 1 to accommodate array 2 elements
+
+    // int i = m - 1;
+    // int j = n - 1;
+    // int len = m + n - 1;
+
+    // while(i >= 0 && j >= 0) {
+    //     if(nums1[i] >= nums2[j]) {
+    //         nums1[len] = nums1[i];
+    //         i--;
+    //     } else {
+    //         nums1[len] = nums2[j];
+    //         j--;
+    //     }
+    //     len--;
+    // }
+
+    // while(i >= 0) {
+    //     nums1[len] = nums1[i];
+    //     i--;
+    //     len--;
+    // }
+
+    // while(j >= 0) {
+    //     nums1[len] = nums2[j];
+    //     j--;
+    //     len--;
+    // }
+
+    // Approach 2: Where no additional space is present in the array 1 to accommodate array 2 elements
+    // Problem Link: https://takeuforward.org/data-structure/merge-two-sorted-arrays-without-extra-space/
+
+    int left = m-1;
+    int right = 0;
+
+    while(left >= 0 && right < n) {
+        if(nums1[left] > nums2[right]) {
+            swap(nums1[left], nums2[right]);
+            left--;
+            right++;
+        } else {
+            // this condition means both the arrays have desired elements
+            break;
+        }
+    }
+
+    sort(nums1.begin(), nums1.end());
+    sort(nums2.begin(), nums2.end());
+
+    cout<<"Array 1: ";
+    for(int x: nums1) cout<<x<<" ";
+    cout<<"\nArray 2: ";
+    for(int x: nums2) cout<<x<<" ";
+}
+
+int main() {
+    vector<int> v1 = {1, 3, 5, 7};
+    vector<int> v2 = {0, 2, 6, 8, 9};
+
+    merge(v1, v1.size(), v2, v2.size());
+
+    //cout<<largestSubarrayLengthWithSum0(v);
 }

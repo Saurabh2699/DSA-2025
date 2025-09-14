@@ -203,14 +203,22 @@ void unionOfTwoSortedArrays(int arr1[], int arr2[], int n, int m) {
 }
 
 void removeDuplicatesFromSortedArray(int arr[], int n) {
-    int i=0, j=0;
+    // int i=0, j=0;
 
-    while(j < n) {
-        if(arr[i] != arr[j]) {
-            i++;
-            arr[i] = arr[j];
+    // while(j < n) {
+    //     if(arr[i] != arr[j]) {
+    //         i++;
+    //         arr[i] = arr[j];
+    //     }
+    //     j++;
+    // }
+
+    int index = 0;
+    for(int i=0; i<n; i++) {
+        if(i > 0 && arr[i] != arr[i-1]) {
+            index++;
+            arr[index] = arr[i];
         }
-        j++;
     }
 
     print_arr(arr, n);
@@ -326,7 +334,7 @@ void longestSubarrayWithSumKInPlace(int arr[], int n, int k) {
 }
 
 int main() {
-    int arr[] = {5, -6, -2, 3, 1, 1, -4, -3, 7, 5};
+    int arr[] = {1, 1, 1, 2, 3, 3, 4, 5, 6, 7, 7, 8};
     //int arr[] = {1, 1, 3, 2, 3, 1, 1, 1, 1};
     int n = sizeof(arr)/sizeof(arr[0]);
     
@@ -351,13 +359,13 @@ int main() {
     // int arr2[] = {2,3,4,4,5,11,12};
     // unionOfTwoSortedArrays(arr1, arr2, n, m);
 
-    //removeDuplicatesFromSortedArray(arr, n);
+    removeDuplicatesFromSortedArray(arr, n);
 
     //findMissingNumber(arr, n+1);
 
     //findNumberAppearingOnce(arr, n);
 
-    longestSubarrayWithSumK(arr, n, 5);
+    //longestSubarrayWithSumK(arr, n, 5);
     //longestSubarrayWithSumKInPlace(arr, n, 5);
 }
 
