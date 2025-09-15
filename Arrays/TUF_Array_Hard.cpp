@@ -285,6 +285,29 @@ void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
     for(int x: nums2) cout<<x<<" ";
 }
 
+// TC: O(N)
+// SC: O(1)
+// LC: https://leetcode.com/problems/maximum-product-subarray/
+int maxProduct(vector<int>& nums) {
+    int n = nums.size();    
+    double prefix = 1;
+    double suffix = 1;
+    double ans = INT_MIN;
+
+    for(int i=0; i<n; i++) {
+        if(prefix == 0) prefix = 1;
+
+        if(suffix == 0) suffix = 1;
+        
+        prefix = prefix * nums[i];
+        suffix = suffix * nums[n-i-1];
+
+        ans = max(ans, max(prefix, suffix));
+    }
+
+    return ans;
+}
+
 int main() {
     vector<int> v1 = {1, 3, 5, 7};
     vector<int> v2 = {0, 2, 6, 8, 9};
