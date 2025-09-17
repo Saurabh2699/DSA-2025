@@ -5,6 +5,7 @@
 - Merge Overlapping Intervals
 - Merge Two Sorted Arrays
 - Maximum Product Subarray
+- Reverse Pairs
 */
 
 #include<bits/stdc++.h>
@@ -306,6 +307,122 @@ int maxProduct(vector<int>& nums) {
     }
 
     return ans;
+}
+
+void merge(vector<int> &nums, int low, int mid, int high) {
+    vector<int> temp;
+    int i=low, j=mid+1;
+
+    while(i <= mid && j <= high) {
+        if(nums[i] <= nums[j]) {
+            temp.push_back(nums[i]);
+            i++;
+        } else {
+            temp.push_back(nums[j]);
+            j++;
+        }
+    }
+
+    while(i <= mid) {
+        temp.push_back(nums[i]);
+        i++;
+    }
+
+    while(j <= high) {
+        temp.push_back(nums[j]);
+        j++;
+    }
+
+    for(int i=low; i<=high; i++) {
+        nums[i] = temp[i-low];
+    }
+}
+
+int countPairs(vector<int> &nums, int low, int mid, int high) {
+    int right = mid+1;
+    int cnt = 0;
+
+    for(int i=low; i<=mid; i++) {
+        while(right <= high && nums[i] > (long long)2*nums[right]) right++;
+        cnt += (right - (mid+1));
+    }
+
+    return cnt;
+}
+
+int mergeSort(vector<int> &nums, int low, int high) {
+    int cnt = 0;
+
+    if(low >= high) return cnt;
+    
+    int mid = (low + high)/2;
+    cnt += mergeSort(nums, low, mid);
+    cnt += mergeSort(nums, mid+1, high);
+    cnt += countPairs(nums, low, mid, high);
+    merge(nums, low, mid, high);
+
+    return cnt;
+}
+
+// TC: O(2N*logN)
+// SC: O(N)
+// LC: https://leetcode.com/problems/reverse-pairs/
+int reversePairs(vector<int>& nums) {
+    return mergeSort(nums, 0, nums.size()-1);
+}
+
+int mergeArrs(vector<int> &nums, int low, int mid, int high) {
+    int i = low; 
+    int j = mid+1;
+    int cnt = 0;
+    vector<int> temp;
+
+    while(i <= mid && j <= high) {
+        if(nums[i] <= nums[j]) {
+            temp.push_back(nums[i]);
+            i++;
+        } else {
+            cnt += (mid-i+1);
+            temp.push_back(nums[j]);
+            j++;
+        }
+    }
+
+    while(i <= mid) {
+        temp.push_back(nums[i]);
+        i++;
+    }
+
+    while(j <= high) {
+        temp.push_back(nums[j]);
+        j++;
+    }
+
+    for(int i=low; i<=high; i++) {
+        nums[i] = temp[i-low];
+    }
+    
+    return cnt; 
+}
+
+int cntInversions(vector<int> &nums, int low, int high) {
+    int cnt = 0;
+    
+    if(low >= high) return cnt;
+
+    int mid = (low + high)/2;
+    cnt += cntInversions(nums, low, mid);
+    cnt += cntInversions(nums, mid + 1, high);
+    cnt += mergeArrs(nums, low, mid, high);
+
+    return cnt;
+}
+
+// TC: O(N*logN)
+// SC: O(N)
+// TUF: https://takeuforward.org/data-structure/count-inversions-in-an-array/
+int countInversion(vector<int> &nums) {
+    return cntInversions(nums, 0, nums.size() - 1);
 }
 
 int main() {
