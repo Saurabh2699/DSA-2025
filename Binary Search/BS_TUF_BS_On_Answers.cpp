@@ -8,6 +8,8 @@
 *   3. Koko Eating Bananas
 *   4. Minimum Days to Make Bouquets
 *   5. Smallest Divisor Given a Threshold
+*   6. Capacity To Ship Packages Within D Days
+*   7. Kth missing positive number
 * ------------------------------------------------------------
 * Sources & Problem Links:
 *   1. Square Root: https://leetcode.com/problems/sqrtx/
@@ -232,6 +234,87 @@ int smallestDivisor(vector<int>& nums, int threshold) {
     }
     
     return ans;
+}
+
+int getDaysToShip(vector<int> &weights, int capacity) {
+    int currCapacity = 0;
+    int days = 1;
+
+    for(int wt: weights) {
+        if(currCapacity + wt > capacity) {
+            days++;
+            currCapacity = wt;
+        } else {
+            currCapacity += wt;
+        }
+    }
+
+    return days;
+}
+
+int shipWithinDays(vector<int>& weights, int days) {
+    int n = weights.size();
+    int maxi = INT_MIN;
+    int sum = 0;
+    
+    for(int wt: weights) {
+        maxi = max(maxi, wt);
+        sum += wt;
+    }
+    
+    int low = maxi;
+    int high = sum;
+    int ans = sum;
+
+    while(low <= high) {
+        int mid = (low + high)/2;
+        int noOfDays = getDaysToShip(weights, mid);
+        if(noOfDays <= days) {
+            ans = mid;
+            high = mid-1;
+        } else {
+            low = mid+1;
+        }
+    }
+
+    return ans;
+}
+
+ int findKthPositive(vector<int>& arr, int k) {
+    // Brute Force Approach
+    // int n = arr.size();
+
+    // if(k < arr[0]) return k;
+
+    // int prev = 0;
+    // for(int i=0; i<n; i++) {
+    //     int ms = arr[i] - prev - 1;
+    //     if(ms < k) {
+    //         k = k-ms;
+    //         prev = arr[i];
+    //     } else {
+    //         return prev + k;
+    //     }
+    // }
+
+    // return arr.back() + k;
+
+    // Optimized Approach - Binary Search
+    int n = arr.size();
+    int low = 0;
+    int high = n-1;
+
+    while(low <= high) {
+        int mid = (low + high)/2;
+        int gap = arr[mid] - mid - 1;
+        if(gap < k) {
+            low = mid + 1;
+        } else {
+            high = mid - 1;
+        }
+    }
+
+    return k + low;
 }
 
 /**

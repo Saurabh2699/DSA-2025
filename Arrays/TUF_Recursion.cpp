@@ -1,3 +1,25 @@
+#/**************************************************************
+# TUF_Recursion.cpp: Classic Recursion Problems and Solutions
+# ------------------------------------------------------------
+# This file contains C++ implementations of basic recursion problems:
+#   1. printAllDivisors: Prints all divisors of a number
+#   2. printNto1: Prints numbers from N to 1
+#   3. sumOfN: Returns sum of first N natural numbers
+#   4. reverseArray: Recursively reverses an array
+#   5. reverseArrayIterative: Iteratively reverses an array
+#   6. checkPallindrome: Checks if a string is a palindrome using recursion
+# ------------------------------------------------------------
+# Time and Space Complexity:
+#   - printAllDivisors:      Time O(sqrt(N)), Space O(sqrt(N))
+#   - printNto1:             Time O(N), Space O(N)
+#   - sumOfN:                Time O(N), Space O(N)
+#   - reverseArray:          Time O(N), Space O(N)
+#   - reverseArrayIterative: Time O(N), Space O(1)
+#   - checkPallindrome:      Time O(N), Space O(N)
+# ------------------------------------------------------------
+# Author: Saurabh2699
+# Last Updated: October 2, 2025
+#**************************************************************/
 #include<bits/stdc++.h>
 using namespace std;
 
